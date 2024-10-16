@@ -1,0 +1,27 @@
+# docker-compose.yaml
+version: "3.8"
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - "8081:8080"
+      - "5001:50000"
+    networks:
+      - dev_network_jenkins
+    container_name: jenkins
+    # build:
+    #   context: ./
+    #   dockerfile: Dockerfile
+    volumes:
+      - jenkins_volumes:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  jenkins_volumes:
+
+networks:
+  dev_network_jenkins:
+    driver: bridge
